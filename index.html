@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Delivery Engineering Portfolio</title>
+  <style>
+    :root {
+      --bg-color: #f7f9fb;
+      --text-color: #333;
+      --accent-color: #2b6cb0;
+      --secondary-color: #2f855a;
+    }
+    body.dark {
+      --bg-color: #1a202c;
+      --text-color: #e2e8f0;
+      --accent-color: #63b3ed;
+      --secondary-color: #9ae6b4;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: background 0.5s ease, color 0.5s ease;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+    .container {
+      max-width: 960px;
+      margin: auto;
+      padding: 2rem;
+      background: var(--bg-color);
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      transition: background 0.5s ease;
+    }
+    h1, h2, h3 {
+      color: var(--accent-color);
+      transition: color 0.5s ease;
+    }
+    ul {
+      padding-left: 1.5rem;
+    }
+    .section {
+      margin-bottom: 2rem;
+    }
+    .highlight {
+      color: var(--secondary-color);
+      font-weight: bold;
+      transition: color 0.5s ease;
+    }
+    .project {
+      margin-bottom: 2rem;
+    }
+    .project img {
+      width: 100%;
+      max-width: 600px;
+      display: block;
+      margin-top: 0.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .footer {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 2rem;
+    }
+    .toggle-switch {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-color);
+      padding: 0.4rem 0.6rem;
+      border-radius: 20px;
+      cursor: pointer;
+      color: white;
+      z-index: 1000;
+      transition: background 0.5s ease, transform 0.3s ease;
+    }
+    .switch {
+      position: relative;
+      width: 40px;
+      height: 20px;
+      background-color: white;
+      border-radius: 20px;
+      transition: background 0.5s ease;
+    }
+    .slider {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 16px;
+      background-color: var(--accent-color);
+      border-radius: 50%;
+      transition: transform 0.3s ease, background-color 0.5s ease;
+    }
+    body.dark .slider {
+      transform: translateX(20px);
+      background-color: var(--secondary-color);
+    }
+    #theme-icon {
+      font-size: 1.2rem;
+      transition: transform 0.5s ease;
+    }
+    body.dark #theme-icon {
+      transform: rotate(180deg);
+    }
+    .toggle-switch:hover {
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transform: scale(1.05);
+    }
+    .profile-img {
+      float: right;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-left: 1rem;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+    .profile-img:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="toggle-switch" onclick="toggleTheme()">
+    <span id="theme-icon">☀️</span>
+    <div class="switch">
+      <div class="slider"></div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Somidotun Aina's Portfolio</h1>
+
+    <div class="section">
+      <h2>About Me</h2>
+      <img src="somidotun image.jpg" alt="Profile Photo" class="profile-img" />
+      <p>Tech-savvy problem solver with experience in building and automating systems using Google Apps Script, HTML/CSS/JavaScript, and IoT solutions via Arduino Cloud. I specialize in integrating technologies to streamline operations and enhance user experience.</p>
+    </div>
+
+    <div class="section">
+      <h2>Key Skills</h2>
+      <ul>
+        <li>Google Apps Script Automation & Integration</li>
+        <li>HTML, CSS & JavaScript Development</li>
+        <li>Arduino IoT Cloud Integration</li>
+        <li>Workflow Automation (Power Automate, Zapier)</li>
+        <li>Data Handling (Google Sheets, Airtable, APIs)</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>Highlighted Projects</h2>
+
+      <div class="project">
+        <h3>Attendance Tracker (Google Apps Script + Sheets)</h3>
+        <p>Built a custom attendance system with structured multi-sheet data, form integration, and automated categorization using Apps Script. <a href="https://script.google.com/macros/s/AKfycbx8JfZFjTOX8iLD4iJH8Es5iln87Ut0COHzValxbT_m8v38zVE4B1g3zDdrW7ODrcyTWA/exec" target="_blank">View App</a></p>
+        <img src="attendance-screenshot.jpg" alt="Attendance Tracker Screenshot">
+      </div>
+
+      <div class="project">
+        <h3>IoT Sensor Logger (Arduino Cloud + Google Sheets)</h3>
+        <p>Connected an Arduino IoT device to monitor environmental conditions and log live sensor data to Google Sheets in real time. <em>(Link to Arduino project to be added)</em></p>
+        <img src="iot-screenshot.jpg" alt="IoT Sensor Logger Screenshot">
+      </div>
+
+      <div class="project">
+        <h3>Personal Portfolio Website</h3>
+        <p>Designed and deployed a responsive portfolio site with a dark/light mode toggle, animations, and smooth transitions using HTML, CSS, and JavaScript.</p>
+        <img src="portfolio-screenshot.jpg" alt="Portfolio Website Screenshot">
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>Contact</h2>
+      <p><span class="highlight">Email:</span> your.email@example.com<br>
+         <span class="highlight">LinkedIn:</span> linkedin.com/in/yourname<br>
+         <span class="highlight">GitHub:</span> github.com/yourusername
+      </p>
+    </div>
+
+    <div class="footer">
+      &copy; 2025 Aina somidotun. All rights reserved.
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.getElementById('theme-icon');
+      const isDark = body.classList.toggle('dark');
+      icon.textContent = isDark ? '🌙' : '☀️';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    }
+
+    window.onload = () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') {
+        document.body.classList.add('dark');
+        document.getElementById('theme-icon').textContent = '🌙';
+      }
+    };
+  </script>
+</body>
+</html>
