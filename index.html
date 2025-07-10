@@ -67,11 +67,15 @@
     }
     .carousel img {
       width: 100%;
-      display: none;
-      transition: opacity 0.5s ease;
+      position: absolute;
+      top: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
     .carousel img.active {
-      display: block;
+      position: relative;
+      opacity: 1;
     }
     .footer {
       text-align: center;
@@ -177,6 +181,8 @@
   </style>
 </head>
 <body>
+  <!-- HTML body content remains unchanged -->
+  <body>
   <div class="toggle-switch" onclick="toggleTheme()">
     <span id="theme-icon">☀️</span>
     <div class="switch">
@@ -240,7 +246,7 @@
       &copy; 2025 Aina Somidotun. All rights reserved.
     </div>
   </div>
-
+  
   <script>
     function toggleTheme() {
       const body = document.body;
@@ -261,14 +267,18 @@
       carousels.forEach(carousel => {
         const images = JSON.parse(carousel.getAttribute('data-images'));
         let index = 0;
-        const img = document.createElement('img');
-        img.src = images[index];
-        img.classList.add('active');
-        carousel.appendChild(img);
+        const imgElements = images.map((src, i) => {
+          const img = document.createElement('img');
+          img.src = src;
+          if (i === 0) img.classList.add('active');
+          carousel.appendChild(img);
+          return img;
+        });
 
         setInterval(() => {
+          imgElements[index].classList.remove('active');
           index = (index + 1) % images.length;
-          img.src = images[index];
+          imgElements[index].classList.add('active');
         }, 3000);
       });
     };
