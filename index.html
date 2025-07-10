@@ -57,13 +57,21 @@
     .project {
       margin-bottom: 2rem;
     }
-    .project img {
+    .carousel {
+      position: relative;
       width: 100%;
       max-width: 600px;
-      display: block;
-      margin-top: 0.5rem;
+      overflow: hidden;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .carousel img {
+      width: 100%;
+      display: none;
+      transition: opacity 0.5s ease;
+    }
+    .carousel img.active {
+      display: block;
     }
     .footer {
       text-align: center;
@@ -201,17 +209,17 @@
       <div class="project">
         <h3>Attendance Tracker (Google Apps Script + Sheets)</h3>
         <p>Built a custom attendance system with structured multi-sheet data, form integration, and automated categorization using Apps Script. <a href="https://script.google.com/macros/s/AKfycbx8JfZFjTOX8iLD4iJH8Es5iln87Ut0COHzValxbT_m8v38zVE4B1g3zDdrW7ODrcyTWA/exec" target="_blank">View App</a></p>
-        <img src="images/attendance-screenshot.jpg" alt="Attendance Tracker Screenshot">
+        <div class="carousel" data-images='["images/attendance-screenshot.jpg", "images/attendance-2.jpg"]'></div>
       </div>
       <div class="project">
         <h3>IoT Sensor Logger (Arduino Cloud + Google Sheets)</h3>
         <p>Connected an Arduino IoT device to monitor environmental conditions and log live sensor data to Google Sheets in real time.</p>
-        <img src="images/iot-screenshot.jpg" alt="IoT Sensor Logger Screenshot">
+        <div class="carousel" data-images='["images/iot-screenshot.jpg", "images/iot-2.jpg"]'></div>
       </div>
       <div class="project">
         <h3>Personal Portfolio Website</h3>
         <p>Designed and deployed a responsive portfolio site with a dark/light mode toggle, animations, and smooth transitions using HTML, CSS, and JavaScript.</p>
-        <img src="images/portfolio-screenshot.jpg" alt="Portfolio Website Screenshot">
+        <div class="carousel" data-images='["images/portfolio-screenshot.jpg", "images/portfolio-2.jpg"]'></div>
       </div>
     </div>
 
@@ -248,6 +256,21 @@
         document.body.classList.add('dark');
         document.getElementById('theme-icon').textContent = '🌙';
       }
+
+      const carousels = document.querySelectorAll('.carousel');
+      carousels.forEach(carousel => {
+        const images = JSON.parse(carousel.getAttribute('data-images'));
+        let index = 0;
+        const img = document.createElement('img');
+        img.src = images[index];
+        img.classList.add('active');
+        carousel.appendChild(img);
+
+        setInterval(() => {
+          index = (index + 1) % images.length;
+          img.src = images[index];
+        }, 3000);
+      });
     };
   </script>
 </body>
