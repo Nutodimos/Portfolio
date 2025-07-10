@@ -6,7 +6,8 @@
   <title>Somidotun Aina's Portfolio</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <style>
-    :root {
+    /* [previous styles preserved above this line] */
+     :root {
       --bg-color: #f7f9fb;
       --text-color: #333;
       --accent-color: #2b6cb0;
@@ -56,6 +57,54 @@
     }
     .project {
       margin-bottom: 2rem;
+    }
+    .carousel-controls {
+      position: absolute;
+      top: 50%;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      transform: translateY(-50%);
+      padding: 0 1rem;
+      box-sizing: border-box;
+    }
+    .carousel-controls button {
+      background-color: rgba(0, 0, 0, 0.5);
+      border: none;
+      color: white;
+      font-size: 1.5rem;
+      cursor: pointer;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease;
+    }
+    .carousel-controls button:hover {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      display: none;
+    }
+    .modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+    }
+    .modal.active {
+      display: flex;
     }
     .carousel {
       position: relative;
@@ -180,9 +229,10 @@
     }
   </style>
 </head>
+
 <body>
-  <!-- HTML body content remains unchanged -->
-  <body>
+  <!-- Assume your existing content structure is here -->
+    <body>
   <div class="toggle-switch" onclick="toggleTheme()">
     <span id="theme-icon">☀️</span>
     <div class="switch">
@@ -204,9 +254,8 @@
       <ul>
         <li>Google Apps Script Automation & Integration</li>
         <li>HTML, CSS & JavaScript Development</li>
-        <li>Arduino IoT Cloud Integration</li>
-        <li>Workflow Automation (Power Automate, Zapier)</li>
-        <li>Data Handling (Google Sheets, Airtable, APIs)</li>
+        <li>Arduino IoT Cloud Integration (C++, C#)</li>
+        <li>Data Handling (Google Sheets, Microsoft excel, Mysql )</li>
       </ul>
     </div>
 
@@ -246,7 +295,9 @@
       &copy; 2025 Aina Somidotun. All rights reserved.
     </div>
   </div>
-  
+  <div class="modal" id="imageModal" onclick="this.classList.remove('active')">
+    <img id="modalImage" src="" alt="Project preview" />
+  </div>
   <script>
     function toggleTheme() {
       const body = document.body;
@@ -264,16 +315,50 @@
       }
 
       const carousels = document.querySelectorAll('.carousel');
-      carousels.forEach(carousel => {
+      carousels.forEach((carousel, carouselIndex) => {
         const images = JSON.parse(carousel.getAttribute('data-images'));
         let index = 0;
+
         const imgElements = images.map((src, i) => {
           const img = document.createElement('img');
           img.src = src;
+          img.dataset.carousel = carouselIndex;
+          img.dataset.index = i;
+          img.addEventListener('click', (e) => {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = e.target.src;
+            modal.classList.add('active');
+          });
           if (i === 0) img.classList.add('active');
           carousel.appendChild(img);
           return img;
         });
+
+        const controls = document.createElement('div');
+        controls.classList.add('carousel-controls');
+        const prevBtn = document.createElement('button');
+        prevBtn.innerHTML = '&#10094;';
+        const nextBtn = document.createElement('button');
+        nextBtn.innerHTML = '&#10095;';
+
+        prevBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          imgElements[index].classList.remove('active');
+          index = (index - 1 + images.length) % images.length;
+          imgElements[index].classList.add('active');
+        });
+
+        nextBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          imgElements[index].classList.remove('active');
+          index = (index + 1) % images.length;
+          imgElements[index].classList.add('active');
+        });
+
+        controls.appendChild(prevBtn);
+        controls.appendChild(nextBtn);
+        carousel.appendChild(controls);
 
         setInterval(() => {
           imgElements[index].classList.remove('active');
